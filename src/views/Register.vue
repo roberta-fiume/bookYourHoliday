@@ -3,10 +3,17 @@
       <h1>REGISTER</h1>
          <v-btn>
                 <router-link to="/">Home</router-link>
-            </v-btn>
+         </v-btn>
+          <v-btn>
+                <router-link to="/login">LOGIN</router-link>
+         </v-btn>
         <v-card>
           <v-text-field 
             v-model="name"  label="Name" required @input="$v.name.$touch()" @blur="$v.name.$touch()">
+          </v-text-field>
+
+         <v-text-field
+            v-model="surname" label="Surname" required @input="$v.surname.$touch()" @blur="$v.surname.$touch()">
           </v-text-field>
           
           <v-text-field 
@@ -36,6 +43,7 @@
 
     validations: {
       name: { required},
+      surname: { required },
       email: { required, email },
       password: { required, maxLength: maxLength(9)},
     
@@ -50,6 +58,7 @@
       name: '',
       password: '',
       email: '',
+      surname: '',
       checkbox: false,
     }),
 
@@ -69,6 +78,13 @@
         return errors
       },
 
+      surnameErrors () {
+        const errors = []
+        if (!this.$v.surname.$dirty) return errors
+        !this.$v.surname.required && errors.push('Surname is required.')
+        return errors
+      },
+
       emailErrors () {
         const errors = []
         if (!this.$v.email.$dirty) return errors
@@ -84,25 +100,37 @@
         !this.$v.password.required && errors.push('Password is required.')
         return errors
       },
-
- 
-      
     },
 
     methods: {
       submit () {
-        this.$v.$touch()
+        this.$v.$touch();
+       let person = this.registeredPerson(this.name, this.surname, this.email, this.password);
+
+       console.log("THIS IS THE PERSONNNN", person);
       },
 
       clear () {
         this.$v.$reset()
         this.name = ''
+        this.surname = ''
         this.email = ''
         this.password = ''
         this.checkbox = false
       },
+
+      registeredPerson(name, surname, email, password) {
+          var person = {"personName": name, "personSurname": surname, "personEmail": email, "personPassword": password};
+          return person;  
+      },
+
+      saveRegisteredPerson() {
+         let person = this.registeredPerson(this.name, this.surname, this.email, this.password);
+         localStorage.setItem('myPerson', person);
+      },
     },
   }
+
 </script>
 
 <style>
