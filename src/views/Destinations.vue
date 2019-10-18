@@ -10,10 +10,13 @@
             <v-btn>
                 <router-link to="/login">Login</router-link>
             </v-btn>
+        
+         
             <v-btn>
                 <router-link to="/register">Register</router-link>
             </v-btn>
         </v-app-bar>
+
         <Animation/>
     </div>
 </template>
