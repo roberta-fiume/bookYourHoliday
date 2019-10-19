@@ -5,7 +5,7 @@
                 <router-link to="/">Home</router-link>
          </v-btn>
           <v-btn>
-                <router-link to="/register">REGISTER</router-link>
+                <router-link to="/register"> New Here? Create a new account</router-link>
          </v-btn>
         <v-card>
           
@@ -19,7 +19,7 @@
 
           <v-checkbox v-model="checkbox" :error-messages="checkboxErrors" label="Do you agree?" required @change="$v.checkbox.$touch()" @blur="$v.checkbox.$touch()"></v-checkbox>
 
-          <v-btn class="mr-4" @click="submit">submit</v-btn>
+          <v-btn class="mr-4" @click="login">Login</v-btn>
 
           <v-btn @click="clear">clear</v-btn>
         </v-card>
@@ -30,6 +30,7 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
+  import firebase from 'firebase'
 
   export default {
     mixins: [validationMixin],
@@ -49,6 +50,7 @@
       email: '',
       password: '',
       checkbox: false,
+      person: {}
     }),
 
     computed: {
@@ -77,11 +79,12 @@
     },
 
     methods: {
-      submit () {
-        this.$v.$touch();
-        let cat = localStorage.getItem('myPerson');
-        console.log("PERSON IN LOGIIIIN", cat)
-    
+     login() {
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
+          this.$router.replace('/')
+        }).catch((err) => {
+          alert(err.message)
+        })
       },
 
       clear () {

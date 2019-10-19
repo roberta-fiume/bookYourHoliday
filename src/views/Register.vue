@@ -8,14 +8,7 @@
                 <router-link to="/login">LOGIN</router-link>
          </v-btn>
         <v-card>
-          <v-text-field 
-            v-model="name"  label="Name" required @input="$v.name.$touch()" @blur="$v.name.$touch()">
-          </v-text-field>
-
-         <v-text-field
-            v-model="surname" label="Surname" required @input="$v.surname.$touch()" @blur="$v.surname.$touch()">
-          </v-text-field>
-          
+        
           <v-text-field 
             v-model="email" :error-messages="emailErrors" label="E-mail" required @input="$v.email.$touch()" @blur="$v.email.$touch()">
           </v-text-field>
@@ -26,7 +19,7 @@
 
           <v-checkbox v-model="checkbox" :error-messages="checkboxErrors" label="Do you agree?" required @change="$v.checkbox.$touch()" @blur="$v.checkbox.$touch()"></v-checkbox>
 
-          <v-btn class="mr-4" @click="submit">submit</v-btn>
+          <v-btn class="mr-4" @click="signUp">Sign Up</v-btn>
 
           <v-btn @click="clear">clear</v-btn>
         </v-card>
@@ -37,13 +30,12 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
+  import firebase from 'firebase'
 
   export default {
     mixins: [validationMixin],
 
     validations: {
-      name: { required},
-      surname: { required },
       email: { required, email },
       password: { required, maxLength: maxLength(9)},
     
@@ -55,10 +47,8 @@
     },
 
     data: () => ({
-      name: '',
-      password: '',
       email: '',
-      surname: '',
+      password: '',
       checkbox: false,
     }),
 
@@ -67,21 +57,6 @@
         const errors = []
         if (!this.$v.checkbox.$dirty) return errors
         !this.$v.checkbox.checked && errors.push('You must agree to continue!')
-        return errors
-      },
-  
-      nameErrors () {
-        const errors = []
-        if (!this.$v.name.$dirty) return errors
-        !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
-        !this.$v.name.required && errors.push('Name is required.')
-        return errors
-      },
-
-      surnameErrors () {
-        const errors = []
-        if (!this.$v.surname.$dirty) return errors
-        !this.$v.surname.required && errors.push('Surname is required.')
         return errors
       },
 
@@ -103,11 +78,12 @@
     },
 
     methods: {
-      submit () {
-        this.$v.$touch();
-       let person = this.registeredPerson(this.name, this.surname, this.email, this.password);
-
-       console.log("THIS IS THE PERSONNNN", person);
+     signUp() {
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(() => {
+          this.$router.replace('/login')
+        }).catch((err) => {
+          alert(err.message)
+        });
       },
 
       clear () {
@@ -117,17 +93,7 @@
         this.email = ''
         this.password = ''
         this.checkbox = false
-      },
-
-      registeredPerson(name, surname, email, password) {
-          var person = {"personName": name, "personSurname": surname, "personEmail": email, "personPassword": password};
-          return person;  
-      },
-
-      saveRegisteredPerson() {
-         let person = this.registeredPerson(this.name, this.surname, this.email, this.password);
-         localStorage.setItem('myPerson', person);
-      },
+      }
     },
   }
 
