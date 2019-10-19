@@ -2,6 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Register from '../views/Register.vue'
 import Destinations from '../views/Destinations.vue'
+import Mexico from '../views/Mexico.vue'
+import Dubai from '../views/Dubai.vue'
+import Hawaii from '../views/Hawaii.vue'
+import Maldives from '../views/Maldives.vue'
+import Sardinia from '../views/Sardinia.vue'
 
 Vue.use(VueRouter)
 
@@ -14,16 +19,43 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import('../views/Login.vue')
   },
 
   {
     path: '/',
     name: 'destinations',
     component: Destinations
+  },
+
+  {
+    path: '/mexico',
+    name: 'mexico',
+    component: Mexico
+  },
+
+  {
+    path: '/dubai',
+    name: 'dubai',
+    component: Dubai
+  },
+
+  {
+    path: '/hawaii',
+    name: 'hawaii',
+    component: Hawaii
+  },
+
+  {
+    path: '/maldives',
+    name: 'maldives',
+    component: Maldives
+  },
+
+  {
+    path: '/sardinia',
+    name: 'sardinia',
+    component: Sardinia
   },
 ]
 

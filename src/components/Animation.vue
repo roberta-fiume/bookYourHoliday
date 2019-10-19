@@ -29,8 +29,6 @@ export default {
         const {animationIsland} = this.$refs
         const timeline2 = new TimelineLite()
         timeline2.to(animationIsland, 4, {x: 200, transition: 0 }) 
-
-
     }
 }
 
