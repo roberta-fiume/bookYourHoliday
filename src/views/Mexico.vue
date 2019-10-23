@@ -19,6 +19,8 @@
             <v-radio label="Double" value="Double"></v-radio>
             </v-radio-group>
             <p> You chose: {{ radios || 'null' }}</p>
+          <p> Please enter your name:</p> <input v-model="firstName" placeholder="Enter your name" class="inputField">
+          <p> Please enter your last name:</p> <input v-model="lastName" placeholder="Enter your last name" class="inputField">
         </v-container>
     </div>
 
@@ -26,6 +28,7 @@
         <span>Number of people: </span>
         <span>{{people}}</span>
         <v-btn class="butt-increment" @click="increment"> + </v-btn>
+        <v-btn class="butt-decrement" @click="decrement"> - </v-btn>
     </div>
 
     <div class="booking-bedroom-type">
@@ -44,6 +47,14 @@
 
     <div class="booking-price" v-if="priceBox" >
         The booking price is: <span> {{finalPrice}}</span>
+
+        <h2>YOUR BOOKING INFORMATION: </h2>
+        <p>Your NAME is: {{firstName}} </p>
+        <p>Your LAST NAME is: {{lastName}} </p>
+        <p> Number of people: {{infoPerson.numberPeople}} </p>
+        <p> Bedroom Size: {{infoPerson.bedroomSize}} </p>
+        <p> Bedroom Type: {{infoPerson.bedroomType}} </p>
+        <p> Price is: {{finalPrice}} </p>
     </div>
 
 </div>
@@ -69,11 +80,14 @@
         ],
 
         radios: 'Single',
+        firstName: null,
+        lastName: null,
         people: 0,
         bedroomType: 'Standard',
         finalPrice: '',
         priceBox: false,
-        prices: []
+        prices: null,
+        infoPerson: {}
       }
     },
 
@@ -87,6 +101,10 @@
            this.people++;
        },
 
+      decrement() {
+           this.people--;
+       },
+
        showPrice() {
            this.priceBox = !this.priceBox;
            this.createPrices();
@@ -94,10 +112,12 @@
 
        createPrices() {
            let bookingInfo = [];
-           bookingInfo.push(this.radios, this.people, this.bedroomType);
+           bookingInfo.push(this.radios, this.people, this.bedroomType, this.firstName, this.lastName,);
            this.prices = bookingInfo;
+           console.log("my arrayyy", this.prices);
           this.combinations();
-
+          this.throwError();
+          this.createObjPerson();
        },
 
        combinations() {
@@ -125,10 +145,35 @@
          } else if (this.prices[0] === "Double" && this.prices[1] == 2 && this.prices[2] === "Gold Suite") {
                this.finalPrice = '£350';
          }
-       }
+       },
+
+       throwError() {
+         if (this.prices[3] === null || this.prices[4] === null) {
+            this.finalPrice = "YOUR INFORMATION IS NOT CORRECT. PLEASE RETRY!"
+         }
+       },
+
+       createObjPerson() {
+         this.infoPerson.name = this.prices[3];
+         this.infoPerson.lastName = this.prices[4];
+         this.infoPerson.bedroomSize = this.prices[0];
+         this.infoPerson.numberPeople = this.prices[1];
+         this.infoPerson.bedroomType = this.prices[2];
+         console.log("THIS IS THE OBJECTTT", this.infoPerson)
+
+         return this.infoPerson
+       },
    }
 
 
   }
 </script>
+
+<style>
+  .inputField {
+    border-bottom: 2px solid lightseagreen;
+  }
+</style>
+
+
 
