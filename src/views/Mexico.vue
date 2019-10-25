@@ -1,6 +1,6 @@
 <template>
 <div>
- <h1> MEXICO</h1>
+   <h1> MEXICO</h1>
     <v-carousel>
         <v-carousel-item
         v-for="(item,i) in items"
@@ -9,41 +9,40 @@
         reverse-transition="fade-transition"
         transition="fade-transition"
         ></v-carousel-item>
-    </v-carousel>
+    </v-carousel> 
 
     <div class="booking-bedroom-size">
         <span>Bedroom: </span>
         <v-container fluid>
             <v-radio-group v-model="radios" :mandatory="false">
-            <v-radio label="Single" value="Single"></v-radio>
-            <v-radio label="Double" value="Double"></v-radio>
+            <v-radio class="radioButtonBedroomSize" label="Single" value="Single"></v-radio>
+            <v-radio class="radioButtonBedroomSize" label="Double" value="Double"></v-radio>
             </v-radio-group>
-            <p> You chose: {{ radios || 'null' }}</p>
+            <p class="bedroom-size-text">You chose: {{ radios || 'null' }}</p>
           <p> Please enter your name:</p> <input v-model="firstName" placeholder="Enter your name" class="inputField">
           <p> Please enter your last name:</p> <input v-model="lastName" placeholder="Enter your last name" class="inputField">
         </v-container>
-    </div>
+    </div> 
 
     <div class="booking-num-people">
-        <span>Number of people: </span>
-        <span>{{people}}</span>
-        <v-btn class="butt-increment" @click="increment"> + </v-btn>
-        <v-btn class="butt-decrement" @click="decrement"> - </v-btn>
+        <span>Number of people: {{people}}</span>
+        <v-btn class="butt-increment" @click="people++"> + </v-btn>
+        <v-btn class="butt-decrement" @click="people--"> - </v-btn>
     </div>
 
     <div class="booking-bedroom-type">
         <span>Bedroom type: </span>
         <v-container fluid>
             <v-radio-group v-model="bedroomType" :mandatory="false">
-            <v-radio label="Standard" value="Standard"></v-radio>
-            <v-radio label="Suite" value="Suite"></v-radio>
-            <v-radio label="Gold Suite" value="Gold Suite"></v-radio>
+            <v-radio class="radioButtonBedroomType" label="Standard" value="Standard"></v-radio>
+            <v-radio class="radioButtonBedroomType" label="Suite" value="Suite"></v-radio>
+            <v-radio class="radioButtonBedroomType" label="Gold Suite" value="Gold Suite"></v-radio>
             </v-radio-group>
-            <p> You chose: {{ bedroomType || 'null' }}</p>
+            <p class="bedroom-type-text"> You chose: {{ bedroomType || 'null' }}</p>
         </v-container>
     </div>
 
-    <v-btn @click="showPrice">Show price</v-btn>
+    <v-btn class="showPrice" @click="showPrice">Show price</v-btn>
 
     <div class="booking-price" v-if="priceBox" >
         The booking price is: <span> {{finalPrice}}</span>
@@ -55,7 +54,7 @@
         <p> Bedroom Size: {{infoPerson.bedroomSize}} </p>
         <p> Bedroom Type: {{infoPerson.bedroomType}} </p>
         <p> Price is: {{finalPrice}} </p>
-    </div>
+    </div> 
 
 </div>
 </template>
@@ -97,14 +96,6 @@
     },
 
    methods: {
-       increment() {
-           this.people++;
-       },
-
-      decrement() {
-           this.people--;
-       },
-
        showPrice() {
            this.priceBox = !this.priceBox;
            this.createPrices();

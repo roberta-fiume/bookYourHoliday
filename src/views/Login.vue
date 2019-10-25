@@ -93,7 +93,6 @@
         this.password = ''
         this.checkbox = false
       },
-
     },
   }
 
