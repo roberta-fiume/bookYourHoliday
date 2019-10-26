@@ -44,9 +44,10 @@
 
     <v-btn class="showPrice" @click="showPrice">Show price</v-btn>
 
+    <p class="errorMessage">{{errorMessage}}</p>
+
     <div class="booking-price" v-if="priceBox" >
         The booking price is: <span> {{finalPrice}}</span>
-
         <h2>YOUR BOOKING INFORMATION: </h2>
         <p>Your NAME is: {{firstName}} </p>
         <p>Your LAST NAME is: {{lastName}} </p>
@@ -55,6 +56,16 @@
         <p> Bedroom Type: {{infoPerson.bedroomType}} </p>
         <p> Price is: {{finalPrice}} </p>
     </div> 
+
+    <div>
+      <span>Are you happy with the booking?</span>
+          <v-radio-group v-model="confirmation" :mandatory="false">
+            <v-radio class="radioButtonConfirmation" label="Yes" value="Yes"  @change="showButtonConfirmation"></v-radio>
+            <v-radio class="radioButtonConfirmation" label="No" value="No"  @change="showButtonEditInfo"></v-radio>
+          </v-radio-group>
+        <v-btn v-if="happy"><router-link to="/Payment" :propTry="infoPerson"> Go to payment</router-link></v-btn>
+        <v-btn v-if="notHappy"> Edit Information </v-btn>
+    </div>
 
 </div>
 </template>
@@ -84,9 +95,13 @@
         people: 0,
         bedroomType: 'Standard',
         finalPrice: '',
+        errorMessage: '',
         priceBox: false,
         prices: null,
-        infoPerson: {}
+        infoPerson: {},
+        confirmation: '',
+        happy: false,
+        notHappy: false
       }
     },
 
@@ -99,13 +114,17 @@
        showPrice() {
            this.priceBox = !this.priceBox;
            this.createPrices();
+           this.clear();
+           if (this.priceBox === true) {
+             this.errorMessage = null;
+           }
        },
 
        createPrices() {
-           let bookingInfo = [];
-           bookingInfo.push(this.radios, this.people, this.bedroomType, this.firstName, this.lastName,);
-           this.prices = bookingInfo;
-           console.log("my arrayyy", this.prices);
+          let bookingInfo = [];
+          bookingInfo.push(this.radios, this.people, this.bedroomType, this.firstName, this.lastName,);
+          this.prices = bookingInfo;
+          console.log("my arrayyy", this.prices);
           this.combinations();
           this.throwError();
           this.createObjPerson();
@@ -139,8 +158,12 @@
        },
 
        throwError() {
-         if (this.prices[3] === null || this.prices[4] === null) {
-            this.finalPrice = "YOUR INFORMATION IS NOT CORRECT. PLEASE RETRY!"
+         if (this.prices[3] === null || this.prices[4] === null || this.prices[1] == 0) {
+            this.errorMessage = "YOUR INFORMATION IS NOT CORRECT. PLEASE RETRY!";
+            this.priceBox = !this.priceBox;
+            this.clear();
+         } else {
+            this.errorMessage = null;
          }
        },
 
@@ -154,6 +177,21 @@
 
          return this.infoPerson
        },
+
+       clear() {
+         this.firstName = null;
+         this.lastName = null;
+       },
+
+       showButtonConfirmation() {
+         this.happy = !this.happy;
+         this.notHappy = false;
+       },
+
+       showButtonEditInfo() {
+         this.notHappy = !this.notHappy;
+         this.happy = false;
+       }
    }
 
 

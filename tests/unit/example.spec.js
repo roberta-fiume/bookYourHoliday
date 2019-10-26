@@ -12,6 +12,20 @@ describe('Mexico', () => {
   })
 });
 
+describe('Mexico', () => {
+  it('checks that input fields change when user types', () => {
+    const wrapper = shallowMount(Mexico);
+    const value = wrapper.find('.inputField').element.value;
+    console.log("THIS IS THE VALUE", value);
+    // const wrapperArray = wrapper.findAll('.inputField')
+    // console.log("this is the arrayyy", wrapperArray);
+    // expect(wrapperArray[0].element.value).toEqual('');
+    // expect(wrapperArray[0].element.value).toEqual('');
+    // wrapperArray.setChecked()
+    // expect(wrapperArray[0].element.value).toEqual('some');
+    // expect(wrapperArray[0].element.value).toEqual('thing');
+  })
+})
 
 describe('Mexico', () => {
   it('increments counter value when button is clicked', () => {

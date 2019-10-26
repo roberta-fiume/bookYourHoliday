@@ -7,6 +7,7 @@ import Dubai from '../views/Dubai.vue'
 import Hawaii from '../views/Hawaii.vue'
 import Maldives from '../views/Maldives.vue'
 import Sardinia from '../views/Sardinia.vue'
+import Payment from '../views/Payment.vue'
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,12 @@ const routes = [
     name: 'sardinia',
     component: Sardinia
   },
+
+  {
+    path: '/payment',
+    name: 'payment',
+    component: Payment
+  }
 ]
 
 const router = new VueRouter({
