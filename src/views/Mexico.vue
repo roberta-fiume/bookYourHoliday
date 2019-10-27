@@ -49,8 +49,8 @@
     <div class="booking-price" v-if="priceBox" >
         The booking price is: <span> {{finalPrice}}</span>
         <h2>YOUR BOOKING INFORMATION: </h2>
-        <p>Your NAME is: {{firstName}} </p>
-        <p>Your LAST NAME is: {{lastName}} </p>
+        <p>Your NAME is: {{infoPerson.name}} </p>
+        <p>Your LAST NAME is: {{infoPerson.lastName}} </p>
         <p> Number of people: {{infoPerson.numberPeople}} </p>
         <p> Bedroom Size: {{infoPerson.bedroomSize}} </p>
         <p> Bedroom Type: {{infoPerson.bedroomType}} </p>
@@ -63,7 +63,8 @@
             <v-radio class="radioButtonConfirmation" label="Yes" value="Yes"  @change="showButtonConfirmation"></v-radio>
             <v-radio class="radioButtonConfirmation" label="No" value="No"  @change="showButtonEditInfo"></v-radio>
           </v-radio-group>
-        <v-btn v-if="happy"><router-link to="/Payment" :propTry="infoPerson"> Go to payment</router-link></v-btn>
+        <v-btn v-if="happy" @click="showRouter"><router-link to="/mexico/payment" > Go to payment</router-link></v-btn>
+        <router-view :infoPersonProp="infoPerson" v-if="buttonNav"></router-view>
         <v-btn v-if="notHappy"> Edit Information </v-btn>
     </div>
 
@@ -101,7 +102,9 @@
         infoPerson: {},
         confirmation: '',
         happy: false,
-        notHappy: false
+        notHappy: false,
+        buttonNav: false
+        
       }
     },
 
@@ -113,6 +116,7 @@
    methods: {
        showPrice() {
            this.priceBox = !this.priceBox;
+           console.log("THIS IS MY STATE",this.priceBox)
            this.createPrices();
            this.clear();
            if (this.priceBox === true) {
@@ -191,6 +195,10 @@
        showButtonEditInfo() {
          this.notHappy = !this.notHappy;
          this.happy = false;
+       },
+
+       showRouter() {
+         this.buttonNav = !this.buttonNav;
        }
    }
 

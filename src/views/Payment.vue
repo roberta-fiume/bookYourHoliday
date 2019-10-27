@@ -4,9 +4,7 @@
 
 <script>
 export default {
-    props: {
-         propTry: Object
-    },
+  props:['infoPersonProp'],
 
     data() {
         return {
@@ -14,8 +12,8 @@ export default {
         }
     },
 
-    mounted() {
-        console.log("I AM passedd", this.props)
+    created() {
+        console.log("I AM passedd", this.infoPersonProp)
     }
 }
 </script>

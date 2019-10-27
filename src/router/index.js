@@ -32,7 +32,11 @@ const routes = [
   {
     path: '/mexico',
     name: 'mexico',
-    component: Mexico
+    component: Mexico,
+
+    children: [
+      { path: 'payment', component: Payment}
+    ]
   },
 
   {
