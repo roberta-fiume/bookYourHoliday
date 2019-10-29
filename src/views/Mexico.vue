@@ -60,11 +60,16 @@
     <div>
       <span>Are you happy with the booking?</span>
           <v-radio-group v-model="confirmation" :mandatory="false">
-            <v-radio class="radioButtonConfirmation" label="Yes" value="Yes"  @change="showButtonConfirmation"></v-radio>
-            <v-radio class="radioButtonConfirmation" label="No" value="No"  @change="showButtonEditInfo"></v-radio>
+            <div :class="{hideRadioButton:hideRadioButton}">
+                 <v-radio id="radioYes" label="Yes" value="Yes"  @change="goToPayment"></v-radio>
+            </div>
+            <div :class="{hideRadioButton:hideRadioButton}">
+                <v-radio id="radioNo" label="No"  value="No"  @change="showButtonEditInfo"></v-radio>
+            </div>
+         
           </v-radio-group>
         <v-btn v-if="happy" @click="showRouter"><router-link to="/mexico/payment" > Go to payment</router-link></v-btn>
-        <router-view :infoPersonProp="infoPerson" v-if="buttonNav"></router-view>
+        <router-view :infoPersonProp="infoPerson" :exampleProp="example" v-if="buttonNav"></router-view>
         <v-btn v-if="notHappy"> Edit Information </v-btn>
     </div>
 
@@ -77,17 +82,17 @@
       return {
         items: [
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+            src: require('@/assets/img/mexico.jpeg'),
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+            src: require('@/assets/img/mexico2.jpg'),
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+            src: require('@/assets/img/mexico3.jpg'),
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
+            src: require('@/assets/img/mexico4.jpg'),
+          }
         ],
 
         radios: 'Single',
@@ -103,8 +108,9 @@
         confirmation: '',
         happy: false,
         notHappy: false,
-        buttonNav: false
-        
+        buttonNav: false,
+        example: "helloo",
+        hideRadioButton: false
       }
     },
 
@@ -187,9 +193,10 @@
          this.lastName = null;
        },
 
-       showButtonConfirmation() {
+       goToPayment() {
          this.happy = !this.happy;
          this.notHappy = false;
+         this.hideRadioButton = true;
        },
 
        showButtonEditInfo() {
@@ -210,6 +217,12 @@
   .inputField {
     border-bottom: 2px solid lightseagreen;
   }
+
+  .hideRadioButton {
+    display: none;
+  }
+
+  
 </style>
 
 

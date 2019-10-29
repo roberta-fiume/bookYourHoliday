@@ -1,6 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 
 import Mexico from "@/views/Mexico.vue"
+import Payment from "@/views/Payment.vue"
 import router from "@/router/index.js"
 
 describe('Mexico', () => {
@@ -32,7 +33,6 @@ describe('Mexico', () => {
     const wrapper = shallowMount(Mexico);
     expect(wrapper.find('.booking-num-people > span').text()).toEqual('Number of people: 0');
     wrapper.find('v-btn').trigger('click');
-    // expect(wrapper.find('.booking-num-people > span').text()).toEqual('Number of people: 1');
   })
 })
 
@@ -53,16 +53,29 @@ describe('Mexico', () => {
   })
 });
 
-describe('Mexico', () => {
-  it('cheks that prop exists in Mexico Component', () => {
-    const wrapper = shallowMount(Mexico, {
+fdescribe('Payment', () => {
+  it('cheks that prop exists in Payment Component', () => {
+    let expectedProp = {
+      name: 'julio',
+      lastName: 'fiume',
+      bedroomSize: 'Double',
+      numberPeople: '2',
+      bedroomType: 'Suite'
+    }; 
+    
+    const wrapper = shallowMount(Payment, {
       propsData: {
-        user: 'infoPersonProp'
+        infoPersonProp: expectedProp
       }
     });
-    expect(wrapper.props().user).toBe('infoPersonProp')
-    expect(wrapper.props('user')).toBe('infoPersonProp')
-  });
+
+    console.log("THIS IS THE NAMEEE", wrapper);
+    
+    // expect(wrapper.props().infoPersonProp.name).toBe('roberta');
+    expect(wrapper.props().infoPersonProp).toEqual(expectedProp);
+    expect(wrapper.find('.name').text()).toEqual('julio');
+    // expect(wrapper.props('infoPersonProp').name).toBe('roberta')
+  })
 });
 
 

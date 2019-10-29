@@ -1,10 +1,26 @@
 <template>
-    <div>PAYMENT</div>
+    <div>
+        <span>PAYMENT</span>
+        <div class="div">
+            <span class="name">{{infoPersonProp.name}} </span> 
+        </div>
+ 
+    </div>
+    
 </template>
 
 <script>
 export default {
-  props:['infoPersonProp'],
+    props: {
+        infoPersonProp: {
+            type: Object
+        },
+
+        exampleProp: {
+            type: String
+        }
+    },
+  
 
     data() {
         return {
@@ -13,7 +29,8 @@ export default {
     },
 
     created() {
-        console.log("I AM passedd", this.infoPersonProp)
+        console.log("I AM passedd", this.infoPersonProp.name);
+        console.log("I AM passedd", this.exampleProp);
     }
 }
 </script>
