@@ -113,8 +113,7 @@
         hideRadioButton: false
       }
     },
-
-
+    
     created() {
         this.people = 0;
     },
