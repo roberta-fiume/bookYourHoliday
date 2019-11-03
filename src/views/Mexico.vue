@@ -1,5 +1,5 @@
 <template>
-<div>
+ <div>
    <h1> MEXICO</h1>
     <v-carousel>
         <v-carousel-item
@@ -26,8 +26,9 @@
 
     <div class="booking-num-people">
         <span>Number of people: {{people}}</span>
-        <v-btn class="butt-increment" @click="people++"> + </v-btn>
-        <v-btn class="butt-decrement" @click="people--"> - </v-btn>
+        <v-btn class="butt-increment" @click="incrementPeople"> + </v-btn>
+        <!-- <button class="butt-increment" @click="incrementPeople"> + </button> -->
+        <v-btn class="butt-decrement" @click="decrementPeople"> - </v-btn>
     </div>
 
     <div class="booking-bedroom-type">
@@ -73,7 +74,7 @@
         <v-btn v-if="notHappy"> Edit Information </v-btn>
     </div>
 
-</div>
+  </div>
 </template>
 
 <script>
@@ -81,20 +82,11 @@
     data () {
       return {
         items: [
-          {
-            src: require('@/assets/img/mexico.jpeg'),
-          },
-          {
-            src: require('@/assets/img/mexico2.jpg'),
-          },
-          {
-            src: require('@/assets/img/mexico3.jpg'),
-          },
-          {
-            src: require('@/assets/img/mexico4.jpg'),
-          }
+          // {src: require('@/assets/img/mexico.jpeg')},
+          // {src: require('@/assets/img/mexico2.jpg')},
+          // {src: require('@/assets/img/mexico3.jpg')},
+          // {src: require('@/assets/img/mexico4.jpg')}
         ],
-
         radios: 'Single',
         firstName: null,
         lastName: null,
@@ -113,12 +105,18 @@
         hideRadioButton: false
       }
     },
-    
+
     created() {
         this.people = 0;
     },
 
    methods: {
+       incrementPeople() {
+         this.people++;
+       },
+       decrementPeople() {
+         this.people--;
+       },
        showPrice() {
            this.priceBox = !this.priceBox;
            console.log("THIS IS MY STATE",this.priceBox)
@@ -205,10 +203,8 @@
 
        showRouter() {
          this.buttonNav = !this.buttonNav;
-       }
+     }
    }
-
-
   }
 </script>
 
@@ -221,8 +217,4 @@
     display: none;
   }
 
-  
 </style>
-
-
-
