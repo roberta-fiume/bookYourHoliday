@@ -1,7 +1,7 @@
 <template>
  <div>
    <h1> MEXICO</h1>
-    <v-carousel>
+    <!-- <v-carousel>
         <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -9,7 +9,7 @@
         reverse-transition="fade-transition"
         transition="fade-transition"
         ></v-carousel-item>
-    </v-carousel> 
+    </v-carousel>  -->
 
     <div class="booking-bedroom-size">
         <span>Bedroom: </span>
@@ -20,14 +20,13 @@
             </v-radio-group>
             <p class="bedroom-size-text">You chose: {{ radios || 'null' }}</p>
           <p> Please enter your name:</p> <input v-model="firstName" placeholder="Enter your name" class="inputField">
-          <p> Please enter your last name:</p> <input v-model="lastName" placeholder="Enter your last name" class="inputField">
+          <p> Please enter your last name:</p> <input v-model="lastName" placeholder="Enter your last name" class="inputField2" value="hello2">
         </v-container>
     </div> 
 
     <div class="booking-num-people">
         <span>Number of people: {{people}}</span>
         <v-btn class="butt-increment" @click="incrementPeople"> + </v-btn>
-        <!-- <button class="butt-increment" @click="incrementPeople"> + </button> -->
         <v-btn class="butt-decrement" @click="decrementPeople"> - </v-btn>
     </div>
 
@@ -43,9 +42,9 @@
         </v-container>
     </div>
 
-    <v-btn class="showPrice" @click="showPrice">Show price</v-btn>
+    <button class="showPrice" @click="showPrice">Show price</button>
 
-    <p class="errorMessage">{{errorMessage}}</p>
+    <p v-if="errorMessage" class="errorMessage">{{errorMessage}}</p>
 
     <div class="booking-price" v-if="priceBox" >
         The booking price is: <span> {{finalPrice}}</span>
@@ -93,7 +92,7 @@
         people: 0,
         bedroomType: 'Standard',
         finalPrice: '',
-        errorMessage: '',
+        errorMessage: false,
         priceBox: false,
         prices: null,
         infoPerson: {},
@@ -118,11 +117,12 @@
          this.people--;
        },
        showPrice() {
+          console.log("IM IN SHOW PRICE!!!!!!!!!!!!!");
            this.priceBox = !this.priceBox;
            console.log("THIS IS MY STATE",this.priceBox)
            this.createPrices();
            this.clear();
-           if (this.priceBox === true) {
+           if (this.priceBox) {
              this.errorMessage = null;
            }
        },

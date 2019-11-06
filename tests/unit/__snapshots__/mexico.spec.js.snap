@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mexico displays h1 element 1`] = `
+<div>
+  <h1> MEXICO</h1>
+  <v-carousel></v-carousel>
+  <div class="booking-bedroom-size"><span>Bedroom: </span>
+    <v-container fluid="">
+      <v-radio-group>
+        <v-radio label="Single" value="Single" class="radioButtonBedroomSize"></v-radio>
+        <v-radio label="Double" value="Double" class="radioButtonBedroomSize"></v-radio>
+      </v-radio-group>
+      <p class="bedroom-size-text">You chose: Single</p>
+      <p> Please enter your name:</p> <input placeholder="Enter your name" class="inputField">
+      <p> Please enter your last name:</p> <input placeholder="Enter your last name" class="inputField">
+    </v-container>
+  </div>
+  <div class="booking-num-people"><span>Number of people: 0</span>
+    <v-btn class="butt-increment"> + </v-btn>
+    <v-btn class="butt-decrement"> - </v-btn>
+  </div>
+  <div class="booking-bedroom-type"><span>Bedroom type: </span>
+    <v-container fluid="">
+      <v-radio-group>
+        <v-radio label="Standard" value="Standard" class="radioButtonBedroomType"></v-radio>
+        <v-radio label="Suite" value="Suite" class="radioButtonBedroomType"></v-radio>
+        <v-radio label="Gold Suite" value="Gold Suite" class="radioButtonBedroomType"></v-radio>
+      </v-radio-group>
+      <p class="bedroom-type-text"> You chose: Standard</p>
+    </v-container>
+  </div>
+  <v-btn class="showPrice">Show price</v-btn>
+  <p class="errorMessage"></p>
+  <!---->
+  <div><span>Are you happy with the booking?</span>
+    <v-radio-group>
+      <div class="">
+        <v-radio id="radioYes" label="Yes" value="Yes"></v-radio>
+      </div>
+      <div class="">
+        <v-radio id="radioNo" label="No" value="No"></v-radio>
+      </div>
+    </v-radio-group>
+    <!---->
+    <!---->
+    <!---->
+  </div>
+</div>
+`;
