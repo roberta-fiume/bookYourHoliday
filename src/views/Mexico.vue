@@ -13,33 +13,40 @@
 
     <div class="booking-bedroom-size">
         <span>Bedroom: </span>
-        <v-container fluid>
-            <v-radio-group v-model="radios" :mandatory="false">
+        <div fluid>
+
+          <input type="radio" id="one" value="Single" v-model="radios" class="radioButtonBedroomSize">
+          <label for="one">Single</label>
+          <br>
+          <input type="radio" id="two" value="Double" v-model="radios"  class="radioButtonBedroomSize">
+          <label for="two">Double</label>
+
+            <!-- <v-radio-group v-model="radios" :mandatory="false">
             <v-radio class="radioButtonBedroomSize" label="Single" value="Single"></v-radio>
             <v-radio class="radioButtonBedroomSize" label="Double" value="Double"></v-radio>
-            </v-radio-group>
+            </v-radio-group> -->
             <p class="bedroom-size-text">You chose: {{ radios || 'null' }}</p>
           <p> Please enter your name:</p> <input v-model="firstName" placeholder="Enter your name" class="inputField">
           <p> Please enter your last name:</p> <input v-model="lastName" placeholder="Enter your last name" class="inputField2" value="hello2">
-        </v-container>
+        </div>
     </div> 
 
     <div class="booking-num-people">
         <span>Number of people: {{people}}</span>
-        <v-btn class="butt-increment" @click="incrementPeople"> + </v-btn>
-        <v-btn class="butt-decrement" @click="decrementPeople"> - </v-btn>
+        <button class="butt-increment" @click="incrementPeople"> + </button>
+        <button class="butt-decrement" @click="decrementPeople"> - </button>
     </div>
 
     <div class="booking-bedroom-type">
         <span>Bedroom type: </span>
-        <v-container fluid>
+        <div fluid>
             <v-radio-group v-model="bedroomType" :mandatory="false">
             <v-radio class="radioButtonBedroomType" label="Standard" value="Standard"></v-radio>
             <v-radio class="radioButtonBedroomType" label="Suite" value="Suite"></v-radio>
             <v-radio class="radioButtonBedroomType" label="Gold Suite" value="Gold Suite"></v-radio>
             </v-radio-group>
             <p class="bedroom-type-text"> You chose: {{ bedroomType || 'null' }}</p>
-        </v-container>
+        </div>
     </div>
 
     <button class="showPrice" @click="showPrice">Show price</button>
@@ -66,7 +73,6 @@
             <div :class="{hideRadioButton:hideRadioButton}">
                 <v-radio id="radioNo" label="No"  value="No"  @change="showButtonEditInfo"></v-radio>
             </div>
-         
           </v-radio-group>
         <v-btn v-if="happy" @click="showRouter"><router-link to="/mexico/payment" > Go to payment</router-link></v-btn>
         <router-view :infoPersonProp="infoPerson" :exampleProp="example" v-if="buttonNav"></router-view>
@@ -87,7 +93,7 @@
           // {src: require('@/assets/img/mexico4.jpg')}
         ],
         radios: 'Single',
-        firstName: null,
+        firstName: "porca puttana",
         lastName: null,
         people: 0,
         bedroomType: 'Standard',
@@ -123,7 +129,7 @@
            this.createPrices();
            this.clear();
            if (this.priceBox) {
-             this.errorMessage = null;
+             this.errorMessage = false;
            }
        },
 
@@ -170,7 +176,7 @@
             this.priceBox = !this.priceBox;
             this.clear();
          } else {
-            this.errorMessage = null;
+            this.errorMessage = false;
          }
        },
 
@@ -212,9 +218,29 @@
   .inputField {
     border-bottom: 2px solid lightseagreen;
   }
+    .inputField2 {
+    border-bottom: 2px solid lightseagreen;
+  }
 
   .hideRadioButton {
     display: none;
+  }
+
+  .butt-increment {
+    width: 60px;
+    height: 30px;
+    border: 2px solid green;
+  }
+  .butt-decrement {
+     width: 60px;
+    height: 30px;
+    border: 2px solid pink;
+  }
+
+  .showPrice {
+     width: 90px;
+    height: 30px;
+    border: 2px solid blueviolet;
   }
 
 </style>
